@@ -2,19 +2,35 @@ package com.example.kotlintodo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.kotlintodo.ui.theme.KotlinTodoTheme
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.kotlintodo.databinding.ActivityMainBinding
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var todoAdapter: TodoAdapter
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        todoAdapter = TodoAdapter(mutableListOf())
+        binding.recyclerviewTodoItems.adapter = todoAdapter
+        binding.recyclerviewTodoItems.layoutManager = LinearLayoutManager(this)
+
+        binding.btnAddTodo.setOnClickListener {
+            val todoTitle = binding.edittextTodoTitle.text.toString()
+            if (todoTitle.isNotEmpty()) {
+                val todo = Todo(todoTitle)
+                todoAdapter.addTodo(todo)
+                binding.edittextTodoTitle.text.clear()
+            }
+        }
+
+        binding.btnDeleteTodo.setOnClickListener {
+            todoAdapter.deleteTodos()
+        }
     }
 }

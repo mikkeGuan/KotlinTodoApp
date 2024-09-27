@@ -8,15 +8,15 @@
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTodoItems"
+        android:id="@+id/recyclerviewTodoItems"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/etTodoTile"
+        app:layout_constraintBottom_toTopOf="@+id/edittextTodoTile"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp" />
 
     <EditText
-        android:id="@+id/etTodoTile"
+        android:id="@+id/edittextTodoTitle"
         android:layout_width="185dp"
         android:layout_height="37dp"
         android:hint="Enter todo title"
@@ -31,7 +31,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnDeleteTodo"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/etTodoTile" />
+        app:layout_constraintStart_toEndOf="@+id/edittextTodoTile"
+        tools:ignore="UnknownId" />
 
     <Button
         android:id="@+id/btnDeleteTodo"
