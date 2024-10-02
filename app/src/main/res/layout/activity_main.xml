@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/edittextTodoTile"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp"
-        android:background="#B0C70A"
+        android:background="#d7b8ee"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         />
 

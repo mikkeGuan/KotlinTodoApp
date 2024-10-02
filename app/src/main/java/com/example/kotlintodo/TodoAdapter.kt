@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.databinding.ItemTodoBinding
 
 data class Todo(
-    val title: String,
+    var id: String? = null,
+    val title: String = "",
     var isChecked: Boolean = false
 )
 
@@ -41,9 +42,10 @@ class TodoAdapter(
             textviewTodoTitle.text = currentTodo.title
             checkboxDone.isChecked = currentTodo.isChecked
             strikeThrough(textviewTodoTitle, currentTodo.isChecked)
+
             checkboxDone.setOnCheckedChangeListener { _, isChecked ->
-                strikeThrough(textviewTodoTitle, isChecked)
                 currentTodo.isChecked = isChecked
+                strikeThrough(textviewTodoTitle, isChecked)
             }
         }
     }
@@ -53,10 +55,18 @@ class TodoAdapter(
         notifyItemInserted(todos.size - 1)
     }
 
-    fun deleteTodos() {
-        todos.removeAll { todo ->
-            todo.isChecked
-        }
+    fun updateTodos(newTodos: List<Todo>) {
+        todos.clear()
+        todos.addAll(newTodos)
         notifyDataSetChanged()
+    }
+
+    fun deleteCompletedTodos() {
+        todos.removeAll { todo -> todo.isChecked }
+        notifyDataSetChanged()
+    }
+
+    fun getCompletedTodos(): List<Todo> {
+        return todos.filter { it.isChecked }
     }
 }
