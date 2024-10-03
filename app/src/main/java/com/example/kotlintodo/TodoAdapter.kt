@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.databinding.ItemTodoBinding
 
 data class Todo(
-    var id: String? = null,
     val title: String = "",
     var isChecked: Boolean = false
 )

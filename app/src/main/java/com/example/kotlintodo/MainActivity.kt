@@ -19,7 +19,6 @@ class MainActivity : ComponentActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup RecyclerView and Adapter
         todoAdapter = TodoAdapter(mutableListOf())
         binding.recyclerviewTodoItems.adapter = todoAdapter
         binding.recyclerviewTodoItems.layoutManager = LinearLayoutManager(this)
@@ -27,7 +26,6 @@ class MainActivity : ComponentActivity() {
         // Fetch data from Firebase when the app starts
         getTodos()
 
-        // Add new Todo
         binding.btnAddTodo.setOnClickListener {
             val todoTitle = binding.edittextTodoTitle.text.toString()
             if (todoTitle.isNotEmpty()) {
@@ -42,7 +40,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Fetch Todos from Firestore
+    // Fetch todos from db
     private fun getTodos() {
         db.collection("todos").get().addOnSuccessListener { result ->
             val todosList = result.map { document -> document.toObject(Todo::class.java) }
@@ -50,14 +48,14 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Add a Todo to Firestore
+    // Add a todo to db
     private fun addTodoToFirebase(todo: Todo) {
         db.collection("todos").add(todo).addOnSuccessListener {
             todoAdapter.addTodo(todo)
         }
     }
 
-    // Delete completed Todos from Firestore
+    // Delete completed todos from db
     private fun deleteCompletedTodos() {
         val completedTodos = todoAdapter.getCompletedTodos()
         completedTodos.forEach { todo ->
